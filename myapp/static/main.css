@@ -1,0 +1,11 @@
+.navbar {
+    border-radius: 0;
+}
+.text-info .list-group-item .list-group{
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+a > img {
+    height: 60px;
+}

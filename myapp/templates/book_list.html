@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    {% extends 'base.html'%}
+    {%block content%}
+    <ul class="list-group">
+        {% for item in book_list %}
+        <li class="list-group-item">
+            <span class="text-info">Tytuł: </span><span>{{item.book.title}}</span>
+            <br>
+            <span class="text-info">Wydawnictwo: </span><span><a href="http://127.0.0.1:8000/publishers/{{item.book.publisher}}">{{item.book.publisher}}</a></span>
+            <br>
+            <span class="text-info">Data Publikacji: </span><span>{{item.book.publication_date}}</span>
+            <br>
+            <span class="text-info">Liczba recenzji: </span><span>{{item.number_of_reviews}}</span>
+            <br>
+            <span class="text-info">Ocena: </span><span><mark>{{item.book_rating}}</mark></span>
+            <br>
+            <a href="{{item.book.title}}"><button class="btn-info btn">Recenzje</button></a>
+        </li>
+        <br>
+
+        
+        {%endfor%}
+    </ul>
+
+    {% endblock %}
+</body>
+</html>

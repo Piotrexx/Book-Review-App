@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    {%extends 'base.html'%}
+
+    {%block content%}
+
+    <!-- {{form}} -->
+    <!-- <p>{{form}}</p>
+    <p>{{error}}</p>
+    {% for i in search_list%}
+    <p>{{search_list}}</p>
+    {%endfor%} -->
+    
+
+    <form method="get" action="http://127.0.0.1:8000/book_search/">
+        {% csrf_token %}
+        {{form}}
+        <button type="submit">SZUKAJ</button>
+    </form>
+    <h1>Wynik wyszukiwania dla <i>{{value}}</i></h1>
+      {% for x in search_list%}
+
+       
+        <li class="list-group-item">
+          <span class="text-info">Tytuł: </span><span> {{x.title}}</span>
+          <br>
+          <span class="text-info">Wydawnictwo: </span><span>{{x.publisher}}</span>
+          <br>
+          <span class="text-info">Data Publikacji: </span><span>{{x.publication_date}}</span>
+          <br>
+
+      </li>
+      <br>
+      {%endfor%}
+      {{error}}
+    {% endblock %}
+</body>
+</html>
