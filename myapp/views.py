@@ -7,24 +7,26 @@ from .forms import *
 from django.contrib import messages
 from django.utils import timezone
 
-def reviews_post(request, pk, reviewer_id=None):
-    pk = get_object_or_404(Book, title=pk)
+def reviews_post(request, book_pk, reviewer_id=None):
+    book_pk = get_object_or_404(Book, pk=book_pk)
 
     if reviewer_id is not None:
-        reviewer = get_object_or_404(Review, book_id=pk, pk=reviewer_id)
+        reviewer = get_object_or_404(Review, book_id=book_pk, pk=reviewer_id)
+        print("hi")
 
     else:
         reviewer = None
+        print("bye")
 
         print(reviewer)
         print(reviewer_id)
-        print(pk)
+        print(book_pk)
     
     books = Book.objects.all()
     # print(pk)
 
     for book in books:
-        if book == pk:
+        if book == book_pk:
             break
         else:
             continue
@@ -52,7 +54,7 @@ def reviews_post(request, pk, reviewer_id=None):
 
 
     form = ReviewsForm(instance=reviewer)
-    return render(request, 'review_form.html', {'form':form, 'book':book, 'pk':pk})
+    return render(request, 'review_form.html', {'form':form, 'book':book, 'pk':book_pk})
 
 
 
@@ -154,7 +156,7 @@ def book_list(request):
 
 
 def detail(request, id):
-    id = get_object_or_404(Book, title=id) # jeżeli takie id istnieje to wtedy wzraca wartość (id=id) albo wywala 404
+    id = get_object_or_404(Book, id=id) # jeżeli takie id istnieje to wtedy wzraca wartość (id=id) albo wywala 404
     # print(id)
     reviews = Review.objects.all() # pobiera wszystkie recenzje
     info_list = []
