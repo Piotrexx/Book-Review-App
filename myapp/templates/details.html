@@ -14,20 +14,30 @@
     
     <ul class="list-group">
         <li class="list-group-item">
-            <span class="text-info">Tytuł: </span><span>{{book.title}}</span>
+            <span class="text-info">Title: </span><span>{{book.title}}</span>
             <br>
-            <span class="text-info">Wydawnictwo: </span><span>{{book.publisher}}</span>
+            <span class="text-info">Publisher: </span><span>{{book.publisher}}</span>
             <br>
-            <span class="text-info">Data Publikacji: </span><span>{{book.publication_date}}</span>
+            <span class="text-info">Publication Date: </span><span>{{book.publication_date}}</span>
             <br>
-            <span class="text-info">Ocena: </span><span><mark>{{book_rating}}</mark></span>
+            <span class="text-info">Rating: </span><span><mark>{{book_rating}}</mark></span>
         </li>
         <br>
     </ul> 
     
-    <!-- <a href="/reviews/new/{{book.id}}"><h1 style="text-align: center;">{{no}}</h1></a> -->
-
-
+    <a class="btn btn-primary" href="{% url 'review_create' book.pk %}">Add Review</a>
+    <hr>
+    <br>
+    
+    {% for item in rev_list %}
+        <br>
+        Content: {{item.review.content}}<br>
+        Rating: {{item.review.rating}}/10<br>
+        Creator name: {{item.review.creator}}<br>
+        Date created: {{item.review.date_created}}<br>
+        Date edited: {{item.review.date_edited}}<br>
+        <hr>
+    {% endfor %}
     {% endblock %}
 </body>
 </html>

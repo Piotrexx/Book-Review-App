@@ -1,65 +1,47 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from .models import Book, Review, BookContributor, Contributor, Publisher
+from .models import Book, Contributor, Publisher, Review
 from .utils import average_rating
 from django.shortcuts import get_object_or_404, redirect
 from .forms import *
 from django.contrib import messages
 from django.utils import timezone
 
-def reviews_post(request, book_pk, reviewer_id=None):
-    book_pk = get_object_or_404(Book, pk=book_pk)
+def reviews_post(request, book_pk, review_pk=None):
+    book = get_object_or_404(Book, pk=book_pk)
 
-    if reviewer_id is not None:
-        reviewer = get_object_or_404(Review, book_id=book_pk, pk=reviewer_id)
-        print("hi")
-
+    if review_pk is not None:
+        review = get_object_or_404(Review, book_id=book_pk, pk=review_pk)
     else:
-        reviewer = None
-        print("bye")
-
-        print(reviewer)
-        print(reviewer_id)
-        print(book_pk)
-    
-    books = Book.objects.all()
-    # print(pk)
-
-    for book in books:
-        if book == book_pk:
-            break
-        else:
-            continue
+        review = None
 
     if request.method == "POST":
-        form = ReviewsForm(request.POST, instance=reviewer)
+        form = ReviewsForm(request.POST, instance=review)
+
         if form.is_valid():
-            created_review = form.save(False)
-            created_review.book = book
-            if reviewer is None:
-                pass
+            updated_review = form.save(False)
+            updated_review.book = book
+
+            if review is None:
+                messages.success(request, "Review for \"{}\" created.".format(book))
             else:
-                created_review.date_edited = timezone.now()
+                updated_review.date_edited = timezone.now()
+                messages.success(request, "Review for \"{}\" updated.".format(book))
 
-                created_review.save()
-            messages.success(request, "Recenzja została dodana")
-            # print(book)
-            return redirect(f"/books/{book.title}", book.pk)
+            updated_review.save()
+            return redirect("Detail", book.pk)
+    else:
+        form = ReviewsForm(instance=review)
 
-
-
-
-
-
-
-
-    form = ReviewsForm(instance=reviewer)
-    return render(request, 'review_form.html', {'form':form, 'book':book, 'pk':book_pk})
-
-
-
+    return render(request, "review_form.html",
+                  {"form": form,
+                   "instance": review,
+                   "model_type": "Review",
+                   "related_instance": book,
+                   "related_model_type": "Book"
+                   })
 def publisher_edit(request, pk=None):
-    print(pk)
+    # print(pk)
     if pk is not None:
         publisher = get_object_or_404(Publisher, name=pk)   
     else:
@@ -142,7 +124,7 @@ def book_list(request):
         else: 
             book_rating = None # nie ma żadnych recenzji 
             number_of_reviews = 0 # liczba recenzji to zero
-        print(book)
+        # print(book)
         # id_test = Review.objects.get(book_id=book)
         # print(id_test)
         book_list.append({ # dodanie wszystkich informacji do objectu który przechowuje zmienne HTML-owe
@@ -159,11 +141,11 @@ def detail(request, id):
     id = get_object_or_404(Book, id=id) # jeżeli takie id istnieje to wtedy wzraca wartość (id=id) albo wywala 404
     # print(id)
     reviews = Review.objects.all() # pobiera wszystkie recenzje
-    info_list = []
+    rev_list = []
     books = Book.objects.all()
     
     for book in books:
-        print(book)
+        # print(book)
         if book == id:
             break
         else:
@@ -172,20 +154,29 @@ def detail(request, id):
 
     if reviews: # jeżeli cokolwiek jest w recenzjach
         no = ""
-        for i in reviews: # pętla która zapętla się po arrayu recenzji 
-            
-            id_of_review = Review.objects.get(book_id=i) # id recenzji książki to liczba i (czyli liczba powtórzeń) 
-            
+        number_of_reviews = len(reviews)
+        for review in reviews: # pętla która zapętla się po arrayu recenzji 
+            # print(review)
+            # print(review.pk)
+            id_of_review = Review.objects.filter(book_id=id) # id recenzji książki to liczba i (czyli liczba powtórzeń) 
+            print(id_of_review)
             if id_of_review == id: # jeżeli id recenzji książki równa się id książki 
-                content = Review.objects.get(content=i)
+                content = Review.objects.get(content=review)
                 book_rating = average_rating([review.rating for review in reviews])
-                # to się jeszcze dokończy :P
             else:
-                print("Bye")
+                content =""
+            book_rating = ""
+            rev_list.append({
+                'review': review,
+                'book_rating': book_rating,
+                'number_of_reviews': number_of_reviews,
+                "content":content
+            })
     else: 
         book_rating = "No reviews !"
         no = "There is no reviews yet !"
         content = ""
-    return render(request, 'details.html', {'no': no, 'book':book, 'content': content, 'book_rating': book_rating})
+        review = None
+    return render(request, 'details.html', {'no': no, 'book':book, 'content': content, 'book_rating': book_rating, "review": review, 'rev_list':rev_list})
 
 

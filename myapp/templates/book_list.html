@@ -12,18 +12,18 @@
     <ul class="list-group">
         {% for item in book_list %}
         <li class="list-group-item">
-            <span class="text-info">Tytuł: </span><span>{{item.book.title}}</span>
+            <span class="text-info">Title: </span><span>{{item.book.title}}</span>
             <br>
-            <span class="text-info">Wydawnictwo: </span><span><a href="http://127.0.0.1:8000/publishers/{{item.book.publisher}}">{{item.book.publisher}}</a></span>
+            <span class="text-info">Publisher: </span><span><a href="http://127.0.0.1:8000/publishers/{{item.book.publisher}}">{{item.book.publisher}}</a></span>
             <br>
-            <span class="text-info">Data Publikacji: </span><span>{{item.book.publication_date}}</span>
+            <span class="text-info">publication date: </span><span>{{item.book.publication_date}}</span>
             <br>
-            <span class="text-info">Liczba recenzji: </span><span>{{item.number_of_reviews}}</span>
+            <span class="text-info">Amount of reviews: </span><span>{{item.number_of_reviews}}</span>
             <br>
-            <span class="text-info">Ocena: </span><span><mark>{{item.book_rating}}</mark></span>
+            <span class="text-info">Rating: </span><span><mark>{{item.book_rating}}</mark></span>
             <br>
-            <a href="{{item.i}}"><button class="btn-info btn">Recenzje</button></a>
-            <a href="/reviews/new/{{item.i}}">dodaj recenzję</a>
+            <a href="{{item.i}}"><button class="btn-info btn">Reviews</button></a>
+            <a href="/reviews/new/{{item.i}}">Add a new review</a>
         </li>
         <br>
 

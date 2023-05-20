@@ -22,21 +22,21 @@
         <a href="/"><img src="{% static 'logo/logo.png'%}"> <span>Bookr<span>Reviews</span></span></a>
       </div>
       <ul class="nav navbar-nav">
-        <li class="active"><a href="/">Strona główna</a></li>
+        <li class="active"><a href="/">Main Page</a></li>
       </ul>
       
     <form method="get" action="http://127.0.0.1:8000/book_search/">
         {% csrf_token %}
         {{main_form.as_p}}
-        <button type="submit">SZUKAJ</button>
+        <button type="submit">Search</button>
       </form>
-      <button class="btn btn-danger navbar-btn">Wyloguj</button>
+      <button class="btn btn-danger navbar-btn">logout *not working yet*</button>
     </div>
   </nav>
 
     {% block content %}
-    <a href="/books"><h1>Recenzje książek</h1></a>
-    <a href="/publishers/new/"><h1>Nie ma jakiegoś wydawnictwa ? Dodaj je !</h1></a>
+    <a href="/books"><h1>Book reviews</h1></a>
+    <a href="/publishers/new/"><h1>Click to add new publisher</h1></a>
     {% endblock %}
 </body>
 </html>

@@ -24,16 +24,16 @@
         {{form}}
         <button type="submit">SZUKAJ</button>
     </form>
-    <h1>Wynik wyszukiwania dla <i>{{value}}</i></h1>
+    <h1>Search results for: <i>{{value}}</i></h1>
       {% for x in search_list%}
 
        
         <li class="list-group-item">
-          <span class="text-info">Tytuł: </span><span> {{x.title}}</span>
+          <span class="text-info">Title: </span><span> {{x.title}}</span>
           <br>
-          <span class="text-info">Wydawnictwo: </span><span>{{x.publisher}}</span>
+          <span class="text-info">Publisher: </span><span>{{x.publisher}}</span>
           <br>
-          <span class="text-info">Data Publikacji: </span><span>{{x.publication_date}}</span>
+          <span class="text-info">Publication date: </span><span>{{x.publication_date}}</span>
           <br>
 
       </li>
