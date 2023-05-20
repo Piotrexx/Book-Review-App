@@ -75,14 +75,18 @@ def base(request, value=None):
         if main_form.is_valid():
 
             for name, value in main_form.cleaned_data.items():
-                search_list = Book.objects.filter(title__icontains=value) | Contributor.objects.filter(first_names__icontains=value) | Contributor.objects.filter(last_names__icontains=value)
+                search_list = Book.objects.filter(title__icontains=value)
+                #| Contributor.objects.filter(first_names__icontains=value) | Contributor.objects.filter(last_names__icontains=value)
+                return redirect('book_search', value)
             if value == None:
                 error = "nic nie znaleziono"
+            
+                
     else:
         main_form = SeachForm()
         value = ""
        
-    
+  
 
         
 
@@ -92,19 +96,23 @@ def book_search(request, value=None):
     error = ""
     search_list = ""
     if request.method == "GET":
-        form = MoreForms(request.GET)
-        if form.is_valid():
+        main_form = SeachForm(request.GET)
+        if main_form.is_valid():
 
-            for name, value in form.cleaned_data.items():
+            for name, value in main_form.cleaned_data.items():
                 search_list = Book.objects.filter(title__icontains=value)
-
-                
+                #| Contributor.objects.filter(first_names__icontains=value) | Contributor.objects.filter(last_names__icontains=value)
+            if value == None:
+                error = "nic nie znaleziono"
+            
+                return redirect('book_search', value)
     else:
-        form = MoreForms()
+        main_form = SeachForm()
+        value = ""
         
         
 
-    return render(request, 'book_search.html', {"form": form, "error": error, "search_list": search_list, 'value': value, })
+    return render(request, 'book_search.html', {"form": main_form, "error": error, "search_list": search_list, 'value': value, })
 
 def book_list(request):
 
@@ -165,7 +173,7 @@ def detail(request, id):
                 book_rating = average_rating([review.rating for review in reviews])
             else:
                 content =""
-            book_rating = ""
+                book_rating = ""
             rev_list.append({
                 'review': review,
                 'book_rating': book_rating,

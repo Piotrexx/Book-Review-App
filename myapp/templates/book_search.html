@@ -11,16 +11,7 @@
 
     {%block content%}
 
-    <!-- {{form}} -->
-    <!-- <p>{{form}}</p>
-    <p>{{error}}</p>
-    {% for i in search_list%}
-    <p>{{search_list}}</p>
-    {%endfor%} -->
-    
-
-    <form method="get" action="http://127.0.0.1:8000/book_search/">
-        {% csrf_token %}
+    <form method="get">
         {{form}}
         <button type="submit">SZUKAJ</button>
     </form>

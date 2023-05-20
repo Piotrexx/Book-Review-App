@@ -25,8 +25,7 @@
         <li class="active"><a href="/">Main Page</a></li>
       </ul>
       
-    <form method="get" action="http://127.0.0.1:8000/book_search/">
-        {% csrf_token %}
+    <form method="get">
         {{main_form.as_p}}
         <button type="submit">Search</button>
       </form>
