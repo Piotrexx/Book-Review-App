@@ -24,16 +24,16 @@
       <ul class="nav navbar-nav">
         <li class="active"><a href="/">Main Page</a></li>
       </ul>
-      
-    <form method="get">
-        {{main_form}}
-        <button type="submit">Search</button>
-    </form>
+      <a href="/"><button>Click to go to search page</button></a>
       <button class="btn btn-danger navbar-btn">logout *not working yet*</button>
     </div>
   </nav>
 
     {% block content %}
+    <form method="get">
+      {{main_form}}
+      <button type="submit">Search</button>
+    </form>
     <a href="/books"><h1>Book reviews</h1></a>
     <a href="/publishers/new/"><h1>Click to add new publisher</h1></a>
     {{error}}
