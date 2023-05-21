@@ -5,11 +5,7 @@ from .models import Book, Publisher, Review
 # BOOK_CHOICES = [(Book.objects.order_by('id'))]
 
 class SeachForm(forms.Form):
-   search = forms.CharField()
-
-class MoreForms(forms.Form):
-   search = forms.CharField()
-   # allBooks = forms.ChoiceField(choices=BOOK_CHOICES, required=False)
+   search = forms.CharField(required=False)
 
 class PublisherForm(forms.ModelForm):
    class Meta:

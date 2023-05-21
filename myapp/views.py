@@ -66,10 +66,8 @@ def publisher_edit(request, pk=None):
 
 
 def base(request, value=None):
-    jaja = "jaja byka"
     error = ""
     search_list = ""
-    main_form = SeachForm()
     if request.method == "GET":
         main_form = SeachForm(request.GET)
         if main_form.is_valid():
@@ -77,42 +75,42 @@ def base(request, value=None):
             for name, value in main_form.cleaned_data.items():
                 search_list = Book.objects.filter(title__icontains=value)
                 #| Contributor.objects.filter(first_names__icontains=value) | Contributor.objects.filter(last_names__icontains=value)
-                return redirect('book_search', value)
-            if value == None:
+            if search_list == None:
                 error = "nic nie znaleziono"
             
-                
+                return redirect('book_search', value)
     else:
         main_form = SeachForm()
         value = ""
+        
        
   
 
         
 
-    return render(request,'base.html', {"main_form": main_form,"jaja":jaja, "error": error, "search_list": search_list, 'value': value,} )
+    return render(request,'base.html', {"main_form": main_form, "error": error, "search_list": search_list, 'value': value,} )
 
-def book_search(request, value=None):
-    error = ""
-    search_list = ""
-    if request.method == "GET":
-        main_form = SeachForm(request.GET)
-        if main_form.is_valid():
+# def book_search(request, value=None):
+    # error = ""
+    # search_list = ""
+    # if request.method == "GET":
+    #     main_form = SeachForm(request.GET)
+    #     if main_form.is_valid():
 
-            for name, value in main_form.cleaned_data.items():
-                search_list = Book.objects.filter(title__icontains=value)
-                #| Contributor.objects.filter(first_names__icontains=value) | Contributor.objects.filter(last_names__icontains=value)
-            if value == None:
-                error = "nic nie znaleziono"
+    #         for name, value in main_form.cleaned_data.items():
+    #             search_list = Book.objects.filter(title__icontains=value)
+    #             #| Contributor.objects.filter(first_names__icontains=value) | Contributor.objects.filter(last_names__icontains=value)
+    #         if value == None:
+    #             error = "nic nie znaleziono"
             
-                return redirect('book_search', value)
-    else:
-        main_form = SeachForm()
-        value = ""
+    #             return redirect('book_search', value)
+    # else:
+    #     main_form = SeachForm()
+    #     value = ""
         
         
 
-    return render(request, 'book_search.html', {"form": main_form, "error": error, "search_list": search_list, 'value': value, })
+    # return render(request, 'book_search.html', {"form": main_form, "error": error, "search_list": search_list, 'value': value, })
 
 def book_list(request):
 

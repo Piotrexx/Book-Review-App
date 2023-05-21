@@ -26,9 +26,9 @@
       </ul>
       
     <form method="get">
-        {{main_form.as_p}}
+        {{main_form}}
         <button type="submit">Search</button>
-      </form>
+    </form>
       <button class="btn btn-danger navbar-btn">logout *not working yet*</button>
     </div>
   </nav>
@@ -36,6 +36,22 @@
     {% block content %}
     <a href="/books"><h1>Book reviews</h1></a>
     <a href="/publishers/new/"><h1>Click to add new publisher</h1></a>
+    {{error}}
+    <h1>Search results for: <i>{{value}}</i></h1>
+    {% for x in search_list%}
+
+     
+      <li class="list-group-item">
+        <span class="text-info">Title: </span><span> {{x.title}}</span>
+        <br>
+        <span class="text-info">Publisher: </span><span>{{x.publisher}}</span>
+        <br>
+        <span class="text-info">Publication date: </span><span>{{x.publication_date}}</span>
+        <br>
+
+    </li>
+    <br>
+    {%endfor%}
     {% endblock %}
 </body>
 </html>
