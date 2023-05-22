@@ -161,28 +161,30 @@ def detail(request, id):
     if reviews: # jeżeli cokolwiek jest w recenzjach
         no = ""
         number_of_reviews = len(reviews)
+        book_rating = average_rating([review.rating for review in reviews])
+        # print(book_rating)
         for review in reviews: # pętla która zapętla się po arrayu recenzji 
             # print(review)
             # print(review.pk)
             id_of_review = Review.objects.filter(book_id=id) # id recenzji książki to liczba i (czyli liczba powtórzeń) 
-            print(id_of_review)
+            # print(id_of_review)
             if id_of_review == id: # jeżeli id recenzji książki równa się id książki 
                 content = Review.objects.get(content=review)
-                book_rating = average_rating([review.rating for review in reviews])
+                
             else:
                 content =""
-                book_rating = ""
             rev_list.append({
                 'review': review,
-                'book_rating': book_rating,
                 'number_of_reviews': number_of_reviews,
                 "content":content
             })
     else: 
-        book_rating = "No reviews !"
+        book_rating = None
         no = "There is no reviews yet !"
         content = ""
         review = None
+
+    
     return render(request, 'details.html', {'no': no, 'book':book, 'content': content, 'book_rating': book_rating, "review": review, 'rev_list':rev_list})
 
 
