@@ -30,14 +30,18 @@
     <br>
     
     {% for item in rev_list %}
-        <br>
-        Content: {{item.review.content}}<br>
-        Rating: {{item.review.rating}}/10<br>
-        Creator name: {{item.review.creator}}<br>
-        Date created: {{item.review.date_created}}<br>
-        Date edited: {{item.review.date_edited}}<br>
-        <a href="{% url 'review_edit' book.pk item.review.pk %}"><button>EDIT</button></a>
-        <hr>
+        {% if item.review.book == book %}
+
+            <br>
+            Content: {{item.review.content}}<br>
+            Rating: {{item.review.rating}}/10<br>
+            Creator name: {{item.review.creator}}<br>
+            Date created: {{item.review.date_created}}<br>
+            Date edited: {{item.review.date_edited}}<br>
+            <a href="{% url 'review_edit' book.pk item.review.pk %}"><button>EDIT</button></a>
+            <hr>
+        {% else %}
+        {%endif%}
     {% endfor %}
     {% endblock %}
 </body>
