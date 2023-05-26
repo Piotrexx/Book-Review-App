@@ -13,7 +13,7 @@ urlpatterns = [
     # path('books/<int:book_pk>/review/new', views.reviews_post, name='review_create')
     path('books/<int:book_pk>/reviews/new/',views.reviews_post, name='review_create'),
     path('books/<int:book_pk>/reviews/<int:review_pk>/', views.reviews_post, name='review_edit'),
-    path('media_form/', views.media_form, name="media_form")
+    path('books/<int:pk>/media_form/', views.media_form, name="media_form"),
 ]
 
 if settings.DEBUG:

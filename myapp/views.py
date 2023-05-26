@@ -67,13 +67,15 @@ def publisher_edit(request, pk=None):
 
 
 
-def media_form(request):
+def media_form(request, pk):
     instance = None
+    book = get_object_or_404(Book, pk=pk)
     if request.method == "POST":
         form = UploadForm(request.POST, request.FILES)
         
         if form.is_valid():
             instance = form.save()
+            return redirect('Detail', book.pk) 
     else:
         form = UploadForm()
 
@@ -103,28 +105,6 @@ def base(request, value=None):
         
 
     return render(request,'base.html', {"main_form": main_form, "error": error, "search_list": search_list, 'value': value,} )
-
-# def book_search(request, value=None):
-    # error = ""
-    # search_list = ""
-    # if request.method == "GET":
-    #     main_form = SeachForm(request.GET)
-    #     if main_form.is_valid():
-
-    #         for name, value in main_form.cleaned_data.items():
-    #             search_list = Book.objects.filter(title__icontains=value)
-    #             #| Contributor.objects.filter(first_names__icontains=value) | Contributor.objects.filter(last_names__icontains=value)
-    #         if value == None:
-    #             error = "nic nie znaleziono"
-            
-    #             return redirect('book_search', value)
-    # else:
-    #     main_form = SeachForm()
-    #     value = ""
-        
-        
-
-    # return render(request, 'book_search.html', {"form": main_form, "error": error, "search_list": search_list, 'value': value, })
 
 def book_list(request):
 
@@ -163,7 +143,7 @@ def detail(request, id):
     reviews = Review.objects.all() # pobiera wszystkie recenzje
     rev_list = []
     books = Book.objects.all()
-    
+
     for book in books:
         # print(book)
         if book == id:
@@ -171,7 +151,12 @@ def detail(request, id):
         else:
             continue
     
-
+   
+    # instance = MediaModel.objects.filter(image_upload="images/"+book.title.replace(" ","_")+".png")
+   
+    instance = MediaModel.objects.get(image_upload="images/Advanced_Deep_Learning_with_Keras.png")
+    url = instance.image_upload.url
+    # print("images/"+book.title.replace(" ","_")+".png")
     if reviews: # jeżeli cokolwiek jest w recenzjach
         no = ""
         number_of_reviews = len(reviews)
@@ -199,6 +184,6 @@ def detail(request, id):
         review = None
 
     
-    return render(request, 'details.html', {'no': no, 'book':book, 'content': content, 'book_rating': book_rating, "review": review, 'rev_list':rev_list})
+    return render(request, 'details.html', {"url":url,'no': no, 'book':book, 'content': content, 'book_rating': book_rating, "review": review, 'rev_list':rev_list})
 
 

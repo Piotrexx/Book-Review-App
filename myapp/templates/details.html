@@ -10,8 +10,8 @@
     {%extends 'base.html'%}
 
     {%block content%}
-
-    
+    {{url}}
+    <a href="media_form">form for adding images and files</a>
     <ul class="list-group">
         <li class="list-group-item">
             <span class="text-info">Title: </span><span>{{book.title}}</span>
@@ -24,7 +24,7 @@
         </li>
         <br>
     </ul> 
-    
+    <img src="{{url}}" alt="book_image">
     <a class="btn btn-primary" href="{% url 'review_create' book.pk %}">Add Review</a>
     <hr>
     <br>
