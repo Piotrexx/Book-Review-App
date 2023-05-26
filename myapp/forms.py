@@ -1,8 +1,8 @@
 from django.core.exceptions import ValidationError
 from django import forms
-from .models import Book, Publisher, Review
+from .models import *
 
-# BOOK_CHOICES = [(Book.objects.order_by('id'))]
+
 
 class SeachForm(forms.Form):
    search = forms.CharField(required=False)
@@ -19,12 +19,9 @@ class ReviewsForm(forms.ModelForm):
       model = Review
       exclude = ["date_edited", "book"]
    
-   # def clean(self):
-   #    cleaned_data = super().clean()
-   #    rating = cleaned_data("rating",0)
-   #    if rating > 10:
-   #       self.add_errors("rating", "ocdawpihjdapwdawopdghg")
-   #    else:
-   #       self.add_error(None, "KAKAHJIPHADHIADN")
-   #       # raise ValidationError("ocena może być jedynie wystawiona od 0 do 10 !")
+
+class UploadForm(forms.ModelForm):
+   class Meta:
+      model = MediaModel
+      fields = "__all__"
    

@@ -54,3 +54,7 @@ class Review(models.Model):
     date_edited = models.DateField(null=True, help_text="Data i czas ostatniej edycji recenzji")
     creator = models.ForeignKey(auth.get_user_model(), on_delete=models.CASCADE)
     book = models.ForeignKey(Book, on_delete=models.CASCADE, help_text="Recenzowana książka")
+
+class MediaModel(models.Model):
+    image_upload = models.ImageField(upload_to="images/")
+    # file_upload = models.FileField(upload_to="files/")

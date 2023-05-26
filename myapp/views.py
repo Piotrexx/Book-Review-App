@@ -65,6 +65,20 @@ def publisher_edit(request, pk=None):
 
 
 
+
+
+def media_form(request):
+    instance = None
+    if request.method == "POST":
+        form = UploadForm(request.POST, request.FILES)
+        
+        if form.is_valid():
+            instance = form.save()
+    else:
+        form = UploadForm()
+
+    return render(request, "media_form.html", {"form": form, "instance": instance})
+
 def base(request, value=None):
     error = ""
     search_list = ""
