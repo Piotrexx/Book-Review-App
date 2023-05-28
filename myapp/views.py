@@ -90,7 +90,6 @@ def base(request, value=None):
 
             for name, value in main_form.cleaned_data.items():
                 search_list = Book.objects.filter(title__icontains=value)
-                #| Contributor.objects.filter(first_names__icontains=value) | Contributor.objects.filter(last_names__icontains=value)
             if search_list == None:
                 error = "nic nie znaleziono"
             
@@ -114,8 +113,6 @@ def book_list(request):
     for book in books:
         i+=1
         reviews = book.review_set.all() # pobieramy informacje o recenzjach (trzeba dodać review_set bo jest Foreignkey)
-        # test = 0
-        # test += 1
         # print(reviews)
         if reviews: # jeżeli reviews istnienją (są prawdą)
             book_rating = average_rating([review.rating for review in reviews]) # obliczamy średnią ocene książki, kożystamy z funkcji average_rating którą stworzyliśmy w pliku utils 
@@ -125,8 +122,6 @@ def book_list(request):
             book_rating = None # nie ma żadnych recenzji 
             number_of_reviews = 0 # liczba recenzji to zero
         # print(book)
-        # id_test = Review.objects.get(book_id=book)
-        # print(id_test)
         book_list.append({ # dodanie wszystkich informacji do objectu który przechowuje zmienne HTML-owe
             'book': book,
             'book_rating': book_rating,
@@ -152,17 +147,12 @@ def detail(request, id):
         else:
             continue
     # print(len(books))
-   
-    # instance = MediaModel.objects.filter(image_upload="images/"+book.title.replace(" ","_")+".png")
     try:
         instance = MediaModel.objects.get(id=a+28)
         url = instance.image_upload.url
     except:
         instance = None
         url = None
-    # print(get_object_or_404(MediaModel, pk=a+28))
-    
-    # print("images/"+book.title.replace(" ","_")+".png")
     if reviews: # jeżeli cokolwiek jest w recenzjach
         no = ""
         number_of_reviews = len(reviews)
