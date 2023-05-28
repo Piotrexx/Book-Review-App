@@ -143,19 +143,25 @@ def detail(request, id):
     reviews = Review.objects.all() # pobiera wszystkie recenzje
     rev_list = []
     books = Book.objects.all()
-
+    a = 1
     for book in books:
         # print(book)
         if book == id:
+            a = book.pk
             break
         else:
             continue
-    
+    # print(len(books))
    
     # instance = MediaModel.objects.filter(image_upload="images/"+book.title.replace(" ","_")+".png")
-   
-    instance = MediaModel.objects.get(image_upload="images/Advanced_Deep_Learning_with_Keras.png")
-    url = instance.image_upload.url
+    try:
+        instance = MediaModel.objects.get(id=a+28)
+        url = instance.image_upload.url
+    except:
+        instance = None
+        url = None
+    # print(get_object_or_404(MediaModel, pk=a+28))
+    
     # print("images/"+book.title.replace(" ","_")+".png")
     if reviews: # jeżeli cokolwiek jest w recenzjach
         no = ""
