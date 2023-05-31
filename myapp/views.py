@@ -6,6 +6,12 @@ from django.shortcuts import get_object_or_404, redirect
 from .forms import *
 from django.contrib import messages
 from django.utils import timezone
+from django.contrib.auth.decorators import login_required
+
+
+def profile(request):
+    return render(request,'profile.html')
+
 
 def reviews_post(request, book_pk, review_pk=None):
     book = get_object_or_404(Book, pk=book_pk)
