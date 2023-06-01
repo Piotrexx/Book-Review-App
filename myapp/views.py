@@ -6,18 +6,23 @@ from django.shortcuts import get_object_or_404, redirect
 from .forms import *
 from django.contrib import messages
 from django.utils import timezone
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import permission_required, user_passes_test , login_required
+from django.core.exceptions import PermissionDenied
+from PIL import Image
 
-
+@login_required
 def profile(request):
     return render(request,'profile.html')
 
-
+@login_required
 def reviews_post(request, book_pk, review_pk=None):
     book = get_object_or_404(Book, pk=book_pk)
 
     if review_pk is not None:
         review = get_object_or_404(Review, book_id=book_pk, pk=review_pk)
+        user = request.user
+        if not user.is_staff and review.creator.id != user.id:
+            raise PermissionDenied
     else:
         review = None
 
@@ -46,6 +51,12 @@ def reviews_post(request, book_pk, review_pk=None):
                    "related_instance": book,
                    "related_model_type": "Book"
                    })
+
+def is_staff_user(user):
+    return user.is_staff
+
+
+@user_passes_test(is_staff_user)
 def publisher_edit(request, pk=None):
     # print(pk)
     if pk is not None:
@@ -72,7 +83,7 @@ def publisher_edit(request, pk=None):
 
 
 
-
+@login_required
 def media_form(request, pk):
     instance = None
     book = get_object_or_404(Book, pk=pk)
