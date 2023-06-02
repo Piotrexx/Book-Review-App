@@ -27,9 +27,11 @@
       <a href="/"><button>Click to go to search page</button></a>
       {% if user.is_authenticated%}
         <a href="/accounts/logout"><button class="btn btn-danger navbar-btn">Logout</button></a>
+        <a href="/accounts/profile">Profil</a>
       {% else %}
         <a href="/accounts/login"><button>LOGIN</button></a>
       {% endif %}
+
     </div>
   </nav>
 
@@ -40,7 +42,9 @@
       <button type="submit">Search</button>
     </form>
     <a href="/books"><h1>Book reviews</h1></a>
-    <a href="/publishers/new/"><h1>Click to add new publisher</h1></a>
+    {% if user.is_authenticated%}
+      <a href="/publishers/new/"><h1>Click to add new publisher</h1></a>
+    {% endif %}
     {{error}}
     <h1>Search results for: <i>{{value}}</i></h1>
     {% for x in search_list%}

@@ -23,7 +23,9 @@
             <span class="text-info">Rating: </span><span><mark>{{item.book_rating}}</mark></span>
             <br>
             <a href="{{item.i}}"><button class="btn-info btn">Reviews</button></a>
-            <a href="{% url 'review_create' item.book.pk%}">Add a new review</a>
+            {% if user.is_authenticated%}
+                <a href="{% url 'review_create' item.book.pk%}">Add a new review</a>
+            {% endif %}
         </li>
         <br>
 

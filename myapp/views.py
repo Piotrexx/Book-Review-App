@@ -163,7 +163,24 @@ def detail(request, id):
             break
         else:
             continue
-    # print(len(books))
+    # # print(len(books))
+    # # if request.user.is_authenticated:
+    # #     max_viewd_books_lenght = 10
+    # #     viewed_books = request.session.get('viewed_books', [])
+    # #     viewed_book = [book.id, book.title]
+    # #     if viewed_book in viewed_books:
+    # #         viewed_books.pop(viewed_books.index(viewed_book))
+    # #     viewed_books.insert(0, viewed_book)
+    # #     viewed_books = viewed_books[:max_viewd_books_lenght]
+    # #     request.session['viewed_books'] = viewed_book
+    # if request.user.is_authenticated:
+    #     max_viewed_books_length = 10
+    #     viewed_books = request.session.get('viewed_books', [])
+    #     viewed_book = [book.id, book.title]
+    #     if viewed_book not in viewed_books:
+    #         viewed_books.insert(0, viewed_book)
+    #         viewed_books = viewed_books[:max_viewed_books_length]
+    #         request.session['viewed_books'] = viewed_books
     try:
         instance = MediaModel.objects.get(id=a+28)
         url = instance.image_upload.url
@@ -195,7 +212,15 @@ def detail(request, id):
         no = "There is no reviews yet !"
         content = ""
         review = None
-
+    if request.user.is_authenticated:
+        max_viewed_books_length = 10
+        viewed_books = request.session.get('viewed_books', [])
+        viewed_book = [book.id, book.title]
+        if viewed_book in viewed_books:
+            viewed_books.pop(viewed_books.index(viewed_book))
+        viewed_books.insert(0, viewed_book)
+        viewed_books = viewed_books[:max_viewed_books_length]
+        request.session['viewed_books'] = viewed_books
     
     return render(request, 'details.html', {"url":url,'no': no, 'book':book, 'content': content, 'book_rating': book_rating, "review": review, 'rev_list':rev_list})
 
