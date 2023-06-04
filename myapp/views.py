@@ -102,24 +102,39 @@ def base(request, value=None):
     error = ""
     search_list = ""
     if request.method == "GET":
-        main_form = SeachForm(request.GET)
+        main_form = SearchForm(request.GET)
         if main_form.is_valid():
 
             for name, value in main_form.cleaned_data.items():
+                print(main_form.cleaned_data.items())
+                print(name)
+                if request.user.is_authenticated:
+
+                    max_records = 10
+                    search_history = request.session.get('search_history', [])
+
+                    if search_history is None:
+                        search_history = []
+
+                    search_value = [name, value]
+
+                    if search_value in search_history:
+                        search_history.pop(search_history.index(search_value))
+
+                    search_history.insert(0, search_value)
+                    search_history = search_history[:max_records]
+                    request.session['search_history'] = search_history
+
                 search_list = Book.objects.filter(title__icontains=value)
             if search_list == None:
                 error = "nic nie znaleziono"
-            
                 return redirect('book_search', value)
+
+
     else:
-        main_form = SeachForm()
+        main_form = SearchForm()
         value = ""
-        
-       
-  
-
-        
-
+   
     return render(request,'base.html', {"main_form": main_form, "error": error, "search_list": search_list, 'value': value,} )
 
 def book_list(request):
@@ -163,24 +178,7 @@ def detail(request, id):
             break
         else:
             continue
-    # # print(len(books))
-    # # if request.user.is_authenticated:
-    # #     max_viewd_books_lenght = 10
-    # #     viewed_books = request.session.get('viewed_books', [])
-    # #     viewed_book = [book.id, book.title]
-    # #     if viewed_book in viewed_books:
-    # #         viewed_books.pop(viewed_books.index(viewed_book))
-    # #     viewed_books.insert(0, viewed_book)
-    # #     viewed_books = viewed_books[:max_viewd_books_lenght]
-    # #     request.session['viewed_books'] = viewed_book
-    # if request.user.is_authenticated:
-    #     max_viewed_books_length = 10
-    #     viewed_books = request.session.get('viewed_books', [])
-    #     viewed_book = [book.id, book.title]
-    #     if viewed_book not in viewed_books:
-    #         viewed_books.insert(0, viewed_book)
-    #         viewed_books = viewed_books[:max_viewed_books_length]
-    #         request.session['viewed_books'] = viewed_books
+    #print(len(books))
     try:
         instance = MediaModel.objects.get(id=a+28)
         url = instance.image_upload.url

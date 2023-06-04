@@ -36,13 +36,22 @@
     <div class="infocell" >
       <p>Viewed Books</p>
       <p>
-      {% for  book_title in request.session.viewed_books %}
+      {% for book_id, book_title in request.session.viewed_books %}
       <a href="/books/{{ book_id }}">{{ book_title }}</a><br>
       {% empty %}
             No recently viewed books found.
       {% endfor %}
       </p>
     </div>
+    <div class="infocell" >
+      <p>Search History</p>
+      <p>
+      {% for name, value in request.session.search_history%}
+        {{value}} <br>
+      {% endfor %}
+       </p>
+     </div>
+    <div>
+    </div>
   </div>
-
 {% endblock %}

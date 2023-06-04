@@ -4,7 +4,7 @@ from .models import *
 
 
 
-class SeachForm(forms.Form):
+class SearchForm(forms.Form):
    search = forms.CharField(required=False)
 
 class PublisherForm(forms.ModelForm):
