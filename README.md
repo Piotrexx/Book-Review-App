@@ -40,6 +40,8 @@ git clone https://github.com/Piotrexx/Django_books_project.git
 I don't put files like: 
  - files from folder __pychache__
  - migrations
+
+ 
 Those files goes with the Django framework when app or project created.
 
 For better experiance first create project like this:
