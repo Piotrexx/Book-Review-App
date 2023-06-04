@@ -39,9 +39,9 @@ git clone https://github.com/Piotrexx/Django_books_project.git
 
 I don't put files like: 
  - files from folder __pychache__
- - migrations
+ - files from folder __migrations__
 
- 
+
 Those files goes with the Django framework when app or project created.
 
 For better experiance first create project like this:
@@ -56,7 +56,7 @@ And then create an app just like this:
 python manage.py startapp app_name
 ```
 
-After this you can copy all the files.
+When everything is readym you can copy files from the repository.
 
 **Files from bookr folder goes to your project folder**
 
