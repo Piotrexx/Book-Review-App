@@ -110,7 +110,7 @@ def base(request, value=None):
                 print(name)
                 if request.user.is_authenticated:
 
-                    max_records = 10
+                    max_records = 5
                     search_history = request.session.get('search_history', [])
 
                     if search_history is None:

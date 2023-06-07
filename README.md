@@ -33,6 +33,11 @@ python manage.py runserver
 git clone https://github.com/Piotrexx/Django_books_project.git
 ```
 
+### Changing password
+```shell
+python manage.py changepassword username
+```
+
 # WARNING !
 
 **IT IS WORTH TO NOTICE THAT I DON'T PUT ALL THE FILES IN THE REPOSITORY !**
