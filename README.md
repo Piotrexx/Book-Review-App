@@ -38,7 +38,7 @@ git clone https://github.com/Piotrexx/Django_books_project.git
 python manage.py changepassword username
 ```
 
-# WARNING !
+<!-- # WARNING !
 
 **IT IS WORTH TO NOTICE THAT I DON'T PUT ALL THE FILES IN THE REPOSITORY !**
 
@@ -65,7 +65,7 @@ When everything is readym you can copy files from the repository.
 
 **Files from bookr folder goes to your project folder**
 
-**Files from myapp folder goes to your app folder**
+**Files from myapp folder goes to your app folder** -->
 
 
 
