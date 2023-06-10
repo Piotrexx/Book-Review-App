@@ -12,5 +12,7 @@ class BookrAdmin(admin.AdminSite):
         return TemplateResponse(request, "admin/admin_profile.html", context)
     def get_urls(self):
         urls = super().get_urls()
-        url_patterns = [path("admin_profile", self.admin_view(self.profile_view))]
+        url_patterns = [
+            path("admin_profile", self.admin_view(self.profile_view))
+        ]
         return urls + url_patterns

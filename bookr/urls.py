@@ -20,5 +20,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('myapp.urls')),
     path('accounts/', include(('django.contrib.auth.urls', 'auth'), namespace='accounts')),
-    path('accounts/profile/', myapp.views.profile, name="profile")
+    path('accounts/profile/', myapp.views.profile, name="profile"),
+    path('filter_demo/', include('filter_demo.urls'))
 ]
