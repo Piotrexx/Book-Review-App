@@ -6,10 +6,12 @@
     <title>Document</title>
 </head>
 <body>
-    {% load simple_tag inclusion_tag %}
-    {% greet_user "Hello" username %}
-    <br>
-    <span class="message">You've read those books: </span>
-    {% test books %}
+    <ul>
+        {% for book in test %}
+            <li>
+                {{book}}
+            </li>
+        {% endfor %}        
+    </ul>
 </body>
 </html>
