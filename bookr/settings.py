@@ -39,7 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'myapp',
-    'filter_demo'
+    'filter_demo',
+    'book_management'
 ]
 
 MIDDLEWARE = [

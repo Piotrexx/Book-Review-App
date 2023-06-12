@@ -21,5 +21,6 @@ urlpatterns = [
     path('', include('myapp.urls')),
     path('accounts/', include(('django.contrib.auth.urls', 'auth'), namespace='accounts')),
     path('accounts/profile/', myapp.views.profile, name="profile"),
-    path('filter_demo/', include('filter_demo.urls'))
+    path('filter_demo/', include('filter_demo.urls')),
+    path('book_management/', include('book_management.urls'))
 ]
