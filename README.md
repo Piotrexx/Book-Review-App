@@ -23,7 +23,7 @@ I welcome anyone who want to contribute in this project !
 python pip install Django
 ```
 
-### Installing Djnago rest API framework
+### Installing Djnago rest API framework (DRF)
 ```shell
 pip install djangorestframework
 ```
