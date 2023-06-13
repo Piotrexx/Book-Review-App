@@ -1,5 +1,5 @@
 from django.urls import path, re_path
-from . import views
+from . import views, api_views
 from django.conf import settings
 from django.conf.urls.static import static
 urlpatterns = [
@@ -14,6 +14,7 @@ urlpatterns = [
     path('books/<int:book_pk>/reviews/new/',views.reviews_post, name='review_create'),
     path('books/<int:book_pk>/reviews/<int:review_pk>/', views.reviews_post, name='review_edit'),
     path('books/<int:pk>/media_form/', views.media_form, name="media_form"),
+    path('api/first_api_view', api_views.first_api_view),
 ]
 
 if settings.DEBUG:

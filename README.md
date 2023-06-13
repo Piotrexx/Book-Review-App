@@ -22,6 +22,11 @@ I welcome anyone who want to contribute in this project !
 ```shell
 python pip install Django
 ```
+
+### Installing Djnago rest API framework
+```shell
+pip install djangorestframework
+```
 ### Running develpment server
 
 ```shell
