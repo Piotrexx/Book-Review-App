@@ -21,6 +21,7 @@ class PublisherSerializer(serializers.ModelSerializer):
         fields = ['name', 'website', 'email']
 
 class BookSerializers(serializers.ModelSerializer):
+    publisher = PublisherSerializer()
     class Meta:
         model = Book
         fields = ['title', 'publication_date', 'isbn', 'publisher']
