@@ -31,6 +31,7 @@ class Contributor(models.Model):
     first_names = models.CharField(max_length=50, help_text="Imię lub imiona wspołtwórcy")
     last_names = models.CharField(max_length=50, help_text="Nazwizko lub nazwiska współtwórcy")
     email = models.EmailField(help_text="email współtwórcy")
+    books_contributed = models.ForeignKey(Book, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.first_names
