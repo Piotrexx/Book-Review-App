@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Book, Publisher, Contributor
+from .models import *
 # class PublisherSerializer(serializers.Serializer):
 #     name = serializers.CharField()
 #     website = serializers.URLField()
@@ -26,9 +26,16 @@ class BookSerializers(serializers.ModelSerializer):
         model = Book
         fields = ['title', 'publication_date', 'isbn', 'publisher']
 
+class ContributionSerializer(serializers.ModelSerializer):
+    book = BookSerializers()
+    class Meta:
+        model = BookContributor
+        fields = ['book','role']
+
 
 class ContributorSerializer(serializers.ModelSerializer):
-    book = BookSerializers(many=True)
+    bookcontributor_set = ContributionSerializer(many=True)
+    contrib_number = serializers.ReadOnlyField()
     class Meta:
         model = Contributor
-        fields = ['first_names', 'last_names','email', 'book']
+        fields = ['first_names', 'last_names','email', 'bookcontributor_set','contrib_number']

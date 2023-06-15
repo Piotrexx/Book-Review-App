@@ -15,7 +15,7 @@ urlpatterns = [
     path('books/<int:book_pk>/reviews/<int:review_pk>/', views.reviews_post, name='review_edit'),
     path('books/<int:pk>/media_form/', views.media_form, name="media_form"),
     path('api/all_books/', api_views.AllBooks.as_view() , name="all_books"),
-    path('api/contribs', api_views.BookAndContributors.as_view(), name="contribs")
+    path('api/contribs', api_views.BookAndContributors.as_view(), name="contribs"),
 ]
 
 if settings.DEBUG:
