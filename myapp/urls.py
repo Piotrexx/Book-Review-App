@@ -1,8 +1,16 @@
-from django.urls import path, re_path
+from django.urls import path, include
 from . import views, api_views
 from django.conf import settings
 from django.conf.urls.static import static
+from rest_framework.routers import DefaultRouter
+
+
+router = DefaultRouter()
+router.register(r'books', api_views.BookViewSet)
+router.register(r'reviews', api_views.ReviewViewSet)
+
 urlpatterns = [
+    path('api/', include((router.urls, 'api'))),
     path('books/' ,views.book_list, name="book_list"),
     path('', views.base, name="Home"),
     path('books/<int:id>/', views.detail, name="Detail"),
@@ -14,8 +22,11 @@ urlpatterns = [
     path('books/<int:book_pk>/reviews/new/',views.reviews_post, name='review_create'),
     path('books/<int:book_pk>/reviews/<int:review_pk>/', views.reviews_post, name='review_edit'),
     path('books/<int:pk>/media_form/', views.media_form, name="media_form"),
-    path('api/all_books/', api_views.AllBooks.as_view() , name="all_books"),
-    path('api/contribs', api_views.BookAndContributors.as_view(), name="contribs"),
+
+    # APIs
+
+    # path('api/all_books/', api_views.AllBooks.as_view() , name="all_books"),
+    # path('api/contribs', api_views.BookAndContributors.as_view(), name="contribs"),
 ]
 
 if settings.DEBUG:
