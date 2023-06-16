@@ -23,10 +23,6 @@ from .utils import average_rating
 # #     publication_date = serializers.CharField()
 # #     isbn = serializers.CharField()
 # #     publisher = PublisherSerializer()
-
-
-# class BookViewSet(serializers.ReadOnlyModelViewSet):
-#     query = Book.objects.all()
     
 
 
