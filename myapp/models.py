@@ -11,27 +11,27 @@ class Publisher(models.Model):
 
     email = models.EmailField(help_text="adres email wydawnictwa")
 
-    def __str__(self):
+    def __str__(self): # this function is needed to show name in Django admin panel 
         return self.name
 
 class Book(models.Model):
     title = models.CharField(max_length=70, help_text="tytuł książki")
     publication_date = models.DateField(verbose_name="Data publikacji książki")
     isbn = models.CharField(max_length=20,verbose_name="number ISBN książki")
-    publisher = models.ForeignKey(Publisher, on_delete=models.CASCADE)
+    publisher = models.ForeignKey(Publisher, on_delete=models.CASCADE) # publisher is using ForeignKey that is a many-to-one relationship. Field "publisher" is linked to Publisher Model and if the publisher that is linked to this field will be deleted this will be deleted too. 
     contributors = models.ManyToManyField('Contributor',through="BookContributor")
 
 
 
     def __str__(self):
-        return "{} ({})".format(self.title, self.isbn)
+        return "{} ({})".format(self.title, self.isbn) # it is for showing name and isbn number in Django Admin Panel
     
 class Contributor(models.Model):
 
     first_names = models.CharField(max_length=50, help_text="Imię lub imiona wspołtwórcy")
     last_names = models.CharField(max_length=50, help_text="Nazwizko lub nazwiska współtwórcy")
     email = models.EmailField(help_text="email współtwórcy")
-    def number_contributions(self):
+    def number_contributions(self): # count the number of contributors
         return self.bookcontributor_set.count()
 
     def __str__(self):
@@ -40,6 +40,7 @@ class Contributor(models.Model):
 
 class BookContributor(models.Model):
     class ContributorRole(models.TextChoices):
+        # these are the choices that the Contributor can be
         AUTHOR = "AUTHOR", "Author"
         CO_AUTHOR = "CO_AUTHOR", "Co-Author"
         EDITOR = "EDITOR", "Editor"

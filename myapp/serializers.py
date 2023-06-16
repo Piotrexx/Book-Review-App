@@ -30,25 +30,25 @@ from .utils import average_rating
 
 # # Model Serielizing
 class PublisherSerializer(serializers.ModelSerializer):
-    class Meta:
+    class Meta: #  in Meta class we describe what model are we using and what fields from that model, we have to use Meta class when working with ModelSerialzers
         model = Publisher
         fields = ['name', 'website', 'email']
 
 class BookSerializers(serializers.ModelSerializer):
-    publisher = PublisherSerializer()
+    publisher = PublisherSerializer() # we need to add publisher variable to declare the publisher field from Book model. Plus we want to display Book and it's publisher. This operation is posibble to the ForeignKey in models.py
     class Meta:
         model = Book
         fields = ['title', 'publication_date', 'isbn', 'publisher']
 
 class ContributionSerializer(serializers.ModelSerializer):
-    book = BookSerializers()
+    book = BookSerializers() # The same goes to this
     class Meta:
         model = BookContributor
         fields = ['book','role']
 
 
 class ContributorSerializer(serializers.ModelSerializer):
-    bookcontributor_set = ContributionSerializer(many=True)
+    bookcontributor_set = ContributionSerializer(many=True) # many=True that means that queryset have many sets of items 
     contrib_number = serializers.ReadOnlyField()
     class Meta:
         model = Contributor
