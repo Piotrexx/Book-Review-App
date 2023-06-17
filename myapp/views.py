@@ -10,10 +10,7 @@ from django.contrib.auth.decorators import permission_required, user_passes_test
 from django.core.exceptions import PermissionDenied
 from PIL import Image
 
-@login_required
-def profile(request):
-    
-    return render(request,'profile.html')
+
 
 @login_required
 def reviews_post(request, book_pk, review_pk=None):

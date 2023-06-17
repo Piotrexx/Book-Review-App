@@ -1,0 +1,6 @@
+from django.shortcuts import render
+from django.contrib.auth.decorators import permission_required, user_passes_test , login_required
+@login_required
+def profile(request):
+    
+    return render(request,'profile.html')
