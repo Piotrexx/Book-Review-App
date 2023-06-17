@@ -17,11 +17,11 @@ from rest_framework.authentication import TokenAuthentication
 class Login(APIView):
 
     def post(self, request):
-        user = authenticate(username=request.data.get("username"), password=request.data.get("password"))
+        user = authenticate(username=request.data.get("username"), password=request.data.get("password")) # getting the username and password of logged user
         if not user:
-            return Response({'error': 'Credentails are incorrect or username does not exist'}, status=HTTP_404_NOT_FOUND)
-        token, _ = Token.objects.get_or_create(user=user)
-        return Response({'token': token.key}, status=HTTP_200_OK)
+            return Response({'error': 'Credentails are incorrect or username does not exist'}, status=HTTP_404_NOT_FOUND) # if user isn't logged in then error goes up
+        token, _ = Token.objects.get_or_create(user=user) # creating or getting the token that was created
+        return Response({'token': token.key}, status=HTTP_200_OK) # if user has the token then te status of request is 200 (is good)
 
 
 class AllBooks(generics.ListAPIView):
@@ -35,7 +35,7 @@ class BookAndContributors(generics.ListAPIView):
 class BookViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = Book.objects.all()
     serializer_class = BookSerializer
-    authentication_classes = [TokenAuthentication]
+    authentication_classes = [TokenAuthentication] # user need to have auth token
     permission_classes = [IsAuthenticated]
 
 class ReviewViewSet(viewsets.ModelViewSet):

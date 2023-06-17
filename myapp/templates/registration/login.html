@@ -28,7 +28,8 @@
 </p>
 {% endif %}
 
-<form action="{% url 'accounts:login' %}" method="post" id="login-form">{% csrf_token %}
+<form action="{% url 'accounts:login' %}" method="post" id="login-form">
+  {% csrf_token %}
   <div class="form-row">
     {{ form.username.errors }}
     {{ form.username.label_tag }} {{ form.username }}
