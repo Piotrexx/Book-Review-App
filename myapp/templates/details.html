@@ -40,7 +40,9 @@
             Creator name: {{item.review.creator}}<br>
             Date created: {{item.review.date_created}}<br>
             Date edited: {{item.review.date_edited}}<br>
-            <a href="{% url 'review_edit' book.pk item.review.pk %}"><button>EDIT</button></a>
+            {%if user.is_authenticated%}
+                <a href="{% url 'review_edit' book.pk item.review.pk %}"><button>EDIT</button></a>
+            {% endif %}
             <hr>
         {% else %}
         {%endif%}

@@ -42,4 +42,5 @@ class ReviewViewSet(viewsets.ModelViewSet):
     queryset = Review.objects.order_by('-date_created')
     serializer_class = ReviewSerializer
     pagination_class = LimitOffsetPagination
-    authentication_classes = []
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
