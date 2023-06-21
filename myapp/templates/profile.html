@@ -58,4 +58,7 @@
       </p>
     </div> -->
   </div>
-{% endblock %}
+  {% autoescape off%}
+    {{books_read_plot}}
+  {% endautoescape%}
+    {% endblock %}
