@@ -43,6 +43,10 @@ git clone https://github.com/Piotrexx/Django_books_project.git
 python manage.py changepassword username
 ```
 
+### Starting test
+```shell
+python manage.py test
+```
 <!-- # WARNING !
 
 **IT IS WORTH TO NOTICE THAT I DON'T PUT ALL THE FILES IN THE REPOSITORY !**
