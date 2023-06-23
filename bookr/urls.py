@@ -24,5 +24,6 @@ urlpatterns = [
     path('accounts/profile/', bookr.views.profile, name="profile"),
     path('filter_demo/', include('filter_demo.urls')),
     path('book_management/', include('book_management.urls')),
-    path('read_books/download', bookr.views.books_read, name="books_read")
+    path('read_books/download', bookr.views.books_read, name="books_read"),
+    path('', include('bookr_test.urls'))
 ]
