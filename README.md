@@ -24,9 +24,17 @@ python pip install Django
 ```
 
 ### Installing Djnago rest API framework (DRF)
+
 ```shell
 pip install djangorestframework
 ```
+
+### Installing crispy-forms
+
+```shell
+pip install django-crispy-forms
+```
+
 ### Running develpment server
 
 ```shell

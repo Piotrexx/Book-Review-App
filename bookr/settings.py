@@ -50,7 +50,9 @@ class Dev(Configuration):
         'book_management',
         'rest_framework',
         'rest_framework.authtoken',
-        'bookr_test'
+        'bookr_test',
+        'crispy_forms',
+        'crispy_bootstrap4'
     ]
 
     MIDDLEWARE = [
@@ -88,12 +90,7 @@ class Dev(Configuration):
     # Database
     # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': BASE_DIR / 'db.sqlite3',
-        }
-    }
+    DATABASES = values.DatabaseURLValue('sqlite:///{}/db.sqlite3'.format(BASE_DIR), environ_prefix = 'DJANGO')
 
 
     # Password validation
@@ -140,7 +137,7 @@ class Dev(Configuration):
 
     STATIC_DIRS = [BASE_DIR / 'static']
     LOGOUT_REDIRECT_URL = "/"  
-
+    CRISPY_TEMPLATE_PACK = 'bootstrap4'
 class Prod(Dev):
     DEBUG = False
     SECRET_KEY = values.SecretValue()
