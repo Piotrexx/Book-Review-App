@@ -35,6 +35,10 @@ pip install djangorestframework
 pip install django-crispy-forms
 ```
 
+```shell
+pip install crispy_bootstrap4 
+```
+
 ### Running develpment server
 
 ```shell
